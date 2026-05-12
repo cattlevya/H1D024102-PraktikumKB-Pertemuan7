@@ -1,7 +1,4 @@
 # Klasifikasi Spesies Bunga Iris menggunakan Jaringan Syaraf Tiruan (JST)
-# Dataset: iris.data (lokal)
-# Framework: TensorFlow & Keras
-
 # 1. Import Library
 import numpy as np
 import pandas as pd
@@ -15,7 +12,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 
 # 2. Muat dataset Iris dari file lokal iris.data
-# Dataset tidak memiliki header, dipisahkan dengan koma
 dataset = pd.read_csv('iris.data', header=None, sep=',')
 
 # Menyusun data X (fitur) dan y (label)
@@ -23,7 +19,6 @@ X = dataset.iloc[:, :-1].values  # 4 kolom pertama sebagai fitur
 y = dataset.iloc[:, -1].values   # Kolom terakhir sebagai label
 
 # 3. Konversi label dari string menjadi numerik menggunakan LabelEncoder
-# Iris-setosa -> 0, Iris-versicolor -> 1, Iris-virginica -> 2
 label_encoder = LabelEncoder()
 y = label_encoder.fit_transform(y)
 
@@ -33,7 +28,6 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # 5. Buat model neural network Sequential
-# Arsitektur: Input(4) -> Dense(1000, ReLU) -> Dense(500, ReLU) -> Dense(300, ReLU) -> Dense(3, Softmax)
 model = Sequential([
     Input(shape=X_train.shape[1:]),
     Dense(1000, activation='relu'),
@@ -46,7 +40,6 @@ model = Sequential([
 model.summary()
 
 # 6. Kompilasi model
-# Optimizer: Adam, Loss: sparse_categorical_crossentropy (label integer), Metrics: accuracy
 model.compile(
     optimizer='adam',
     loss='sparse_categorical_crossentropy',
@@ -83,7 +76,6 @@ print("\nPrediksi:", predicted_classes)
 print("Label Asli:", y_test)
 
 # 11. Visualisasi Confusion Matrix
-# Menampilkan distribusi prediksi yang benar dan salah per kelas
 cm = confusion_matrix(y_test, predicted_classes)
 
 plt.figure(figsize=(8, 6))
